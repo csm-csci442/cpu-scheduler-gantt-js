@@ -19,45 +19,17 @@
     <input id='dispatch_overhead' ng-model='ctrl.dispatch_overhead'>
   </form>
 
-  <div>
-    <form ng-repeat='process in ctrl.processes'>
-      Process {{process.name}}
-
-      <label>Service time:</label>
-      <input type='number' min='1' max='20' ng-model='process.service_time'>
-
-      <label>Arrival time:</label>
-      <input type='number' min='0' max='20' ng-model='process.arrival_time'>
-    </form>
-  </div>
-
-
-  <br>
-
-  <div class='gantt'>
-    <div class='tick' ng-repeat='tick in ctrl.ticks track by $index'>
-      <div class='tick-header'>
-        {{$index}}
-      </div>
-
-      <div
-          class='p-tick'
-          ng-class-odd="'bg-1'"
-          ng-class-even="'bg-2'"
-          ng-repeat='process in ctrl.processes'>
-        {{process.name}}
-      </div>
-    </div>
-  </div>
-
-  <br>
-
 
   <table class='stats'>
     <thead>
       <tr>
         <th>Process</th>
+        <th>Arrival Time</th>
+        <th>Service Time</th>
         <th>Remaining Time</th>
+        <th>Finish Time</th>
+        <th>Turnaround Time</th>
+        <th>Response Time</th>
       </tr>
     </thead>
 
@@ -68,11 +40,75 @@
         </td>
 
         <td>
-          {{process.service_time}}
+          <input type='number' min='0' max='20' ng-model='process.arrival_time'>
+        </td>
+
+        <td>
+          <input type='number' min='1' max='20' ng-model='process.service_time'>
+        </td>
+
+        <td>
+          {{process.remaining_time()}}
+        </td>
+
+        <td>
+          {{process.finish_time()}}
+        </td>
+
+        <td>
+          {{process.turnaround_time()}}
+        </td>
+
+        <td>
+          {{process.response_time()}}
         </td>
       </tr>
     </tbody>
   </table>
+
+
+
+  <div class='gantt'>
+
+    <div class='tick process-col'>
+      <div class='tick-header process-label'>
+        Process:
+      </div>
+
+      <div
+          class='p-tick process-name'
+          ng-class-odd="'bg-1'"
+          ng-class-even="'bg-2'"
+          ng-repeat='process in ctrl.processes'>
+        {{process.name}}
+      </div>
+    </div>
+
+    <div class='tick' ng-repeat='tick in ctrl.ticks track by $index'>
+      <div class='tick-header'>
+        {{$index}}
+      </div>
+
+      <div
+          class='p-tick'
+          ng-class-odd='"bg-1"'
+          ng-class-even='"bg-2"'
+          ng-class='{
+            "running": process.ticks[$parent.$index] == "R",
+            "dispatch": process.ticks[$parent.$index] == "D"
+          }'
+          ng-repeat='process in ctrl.processes'
+          ng-click='ctrl.toggle_process($parent.$index, $index)'>
+
+        <div
+            class='arrival'
+            ng-show='$parent.$index === process.arrival_time'>
+        </div>
+
+        {{process.ticks[$parent.$index]}}
+      </div>
+    </div>
+  </div>
 
   <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js'></script>
   <script src='app.js'></script>

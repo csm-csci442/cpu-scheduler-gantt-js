@@ -1,6 +1,10 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 .gantt {
   overflow: auto;
-  margin: 40px 0;
+  padding: 0 40px 40px 20px;
 }
 
 .tick {
@@ -8,35 +12,83 @@
   width: 40px;
 }
 
+.tick.process-col {
+  width: 100px;
+}
+
 .tick > * {
   padding: 5px 0;
   border-left: 1px #AAA solid;
+  height: 20px;
 }
 
 .tick-header {
-  border-bottom: 1px #000 solid;
+  padding-top: 30px;
   border-left: 1px transparent solid;
   text-align: center;
+  font-weight: bold;
 }
 
 .p-tick {
   position: relative;
-  right: 5px;
+  left: 20px;
+  color: #FFF;
+  text-align: center;
+}
+
+.p-tick:nth-child(2) {
+  border-top: 1px #000 solid;
+}
+
+.p-tick:last-child {
+  border-bottom: 1px #000 solid;
+}
+
+.p-tick.process-name {
+  text-align: center;
+  font-weight: bold;
+  color: #000;
 }
 
 .stats {
   text-align: center;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  margin: 15px 0;
+  width: 100%;
 }
 
 .stats tr > td,
 .stats tr > th {
-  padding: 5px 10px;
+  padding: 2px 10px;
 }
 
 .bg-1 {
-  background-color: #FAFAFA;
+  background-color: #FFF;
 }
 
 .bg-2 {
-  background-color: #EFEFEF;
+  background-color: #F5F5F5;
+}
+
+.arrival {
+  height: 100%;
+  width: 5px;
+  position: absolute;
+  left: -3px;
+  top: 0;
+  z-index: 2;
+  background-color: #00F;
+}
+
+.running {
+  background-color: #0A0;
+}
+
+.dispatch {
+  background-color: #999;
+}
+
+input[type=number] {
+  text-align: center;
 }
