@@ -1,0 +1,42 @@
+.gantt {
+  overflow: auto;
+  margin: 40px 0;
+}
+
+.tick {
+  float: left;
+  width: 40px;
+}
+
+.tick > * {
+  padding: 5px 0;
+  border-left: 1px #AAA solid;
+}
+
+.tick-header {
+  border-bottom: 1px #000 solid;
+  border-left: 1px transparent solid;
+  text-align: center;
+}
+
+.p-tick {
+  position: relative;
+  right: 5px;
+}
+
+.stats {
+  text-align: center;
+}
+
+.stats tr > td,
+.stats tr > th {
+  padding: 5px 10px;
+}
+
+.bg-1 {
+  background-color: #FAFAFA;
+}
+
+.bg-2 {
+  background-color: #EFEFEF;
+}

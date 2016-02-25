@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8'>
+  <title>CPU Scheduler Thingie</title>
+  <link rel='stylesheet' href='app.css'>
+</head>
+<body ng-app='os' ng-controller='ProcessListCtrl as ctrl' ng-cloak>
+  <form>
+    <label for='num_processes'>Num processes:</label>
+    <input id='num_processes'
+        type='number'
+        min='1'
+        max='10'
+        ng-model='ctrl.num_processes'
+        ng-change='ctrl.update_processes()'>
+
+    <label for='dispatch_overhead'>Dispatch overhead:</label>
+    <input id='dispatch_overhead' ng-model='ctrl.dispatch_overhead'>
+  </form>
+
+  <div>
+    <form ng-repeat='process in ctrl.processes'>
+      Process {{process.name}}
+
+      <label>Service time:</label>
+      <input type='number' min='1' max='20' ng-model='process.service_time'>
+
+      <label>Arrival time:</label>
+      <input type='number' min='0' max='20' ng-model='process.arrival_time'>
+    </form>
+  </div>
+
+
+  <br>
+
+  <div class='gantt'>
+    <div class='tick' ng-repeat='tick in ctrl.ticks track by $index'>
+      <div class='tick-header'>
+        {{$index}}
+      </div>
+
+      <div
+          class='p-tick'
+          ng-class-odd="'bg-1'"
+          ng-class-even="'bg-2'"
+          ng-repeat='process in ctrl.processes'>
+        {{process.name}}
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+
+  <table class='stats'>
+    <thead>
+      <tr>
+        <th>Process</th>
+        <th>Remaining Time</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr ng-repeat='process in ctrl.processes'>
+        <td>
+          {{process.name}}
+        </td>
+
+        <td>
+          {{process.service_time}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js'></script>
+  <script src='app.js'></script>
+</body>
+</html>
