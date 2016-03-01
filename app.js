@@ -149,4 +149,11 @@ os.ProcessListCtrl.prototype.toggle_process = function(tick, pid) {
 };
 
 
+os.ProcessListCtrl.prototype.clear_chart = function() {
+  for (var i = 0; i < this.processes.length; i++) {
+    this.processes[i].reset_from_tick(0);
+  }
+};
+
+
 angular.module('os', []).controller('ProcessListCtrl', os.ProcessListCtrl);
